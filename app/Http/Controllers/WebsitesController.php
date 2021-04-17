@@ -18,7 +18,7 @@ class WebsitesController extends Controller
         $urls[0][] = 'https://www.londonstockexchange.com/stock/XLM/xlmedia-plc/company-page?lang=en'; 
         $client = new Client();
 
-        for ( $index = 0 ; $index <= 1 ; $index++) {
+        for ( $index = 0 ; $index <= 3 ; $index++) {
             if ( !empty($urls[$index]) ) {
 
                 foreach($urls[$index] as &$value ) {

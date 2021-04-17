@@ -5,6 +5,5 @@ chown -R www-data:www-data netboost
 [laravel]
 php artisan make:migration create_website_table
 php artisan make:controller WebsitesController --resource
-
-php artisan make:migration create_website_table
+php artisan migration:fresh
 php artisan make:model Website
