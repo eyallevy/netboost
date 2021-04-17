@@ -16,6 +16,7 @@ class WebsitesController extends Controller
 
         // $urls[0][] = 'http://robinhoodbingo.com/'; 
         $urls[0][] = 'https://www.londonstockexchange.com/stock/XLM/xlmedia-plc/company-page?lang=en'; 
+
         $client = new Client();
 
         for ( $index = 0 ; $index <= 3 ; $index++) {
@@ -25,11 +26,9 @@ class WebsitesController extends Controller
                     try {
                         set_time_limit (0);
                         $crawler = $client->request('GET',$value);
+                        $response_code = $client->getResponse()->getStatusCode();
 
-                        // $response = $clinet->getResponse();
-                        // dd($response);
-
-                        if ( 200 == 200 ) {
+                        if ( $response_code == 200 ) {
                             $crawler->filter('a')->each(function ($link) use ( &$urls , $index ) {
                                 $href = $link->extract(array('href'));
                                 
@@ -40,7 +39,7 @@ class WebsitesController extends Controller
 
                             $urls[$index+1] = array_unique($urls[$index+1]);
                         } else {
-                            dd($value);
+                            print_r( "URL: {$value} ( StatusCode: {$response_code} ) <br>");
                         }
                     } catch (\Exception $ex)   {
                         error_log($ex);
@@ -62,5 +61,6 @@ class WebsitesController extends Controller
             $website->url = $link;
             $website->save();
         }
+        print_r( "Process was completed successfully");
     }
 }
